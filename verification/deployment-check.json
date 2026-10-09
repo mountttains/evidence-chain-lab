@@ -1,6 +1,7 @@
 {
-  "checkedAt": "2026-10-09T08:55:20.463Z",
-  "url": "http://127.0.0.1:4174/",
+  "version": "1.1.0",
+  "checkedAt": "2026-10-09T09:04:19.055Z",
+  "url": "https://mountttains.github.io/evidence-chain-lab/?v=1.1.0",
   "status": 200,
   "dataStatus": 200,
   "metricChange": "passed",
