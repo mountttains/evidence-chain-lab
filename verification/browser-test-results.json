@@ -1,0 +1,56 @@
+{
+  "runAt": "2026-10-09T08:11:34.127Z",
+  "url": "http://127.0.0.1:4173",
+  "results": [
+    {
+      "name": "initial real-data result",
+      "status": "passed"
+    },
+    {
+      "name": "edit metric and save two actual versions",
+      "status": "passed"
+    },
+    {
+      "name": "source evidence detail has original URL",
+      "status": "passed"
+    },
+    {
+      "name": "filter and data table navigation work",
+      "status": "passed"
+    },
+    {
+      "name": "followup, task persistence and completion",
+      "status": "passed"
+    },
+    {
+      "name": "data failure preserves result and retry clears warning",
+      "status": "passed"
+    },
+    {
+      "name": "exports actual research JSON, not toast only",
+      "status": "passed"
+    },
+    {
+      "name": "unsupported thesis leaves old result intact",
+      "status": "passed"
+    },
+    {
+      "name": "mocked model success is labeled and citations validated",
+      "status": "passed"
+    },
+    {
+      "name": "model authorization failure falls back",
+      "status": "passed"
+    },
+    {
+      "name": "model nonexistent citation rejected",
+      "status": "passed"
+    },
+    {
+      "name": "mobile no horizontal overflow",
+      "status": "passed"
+    }
+  ],
+  "uncaughtErrors": [],
+  "modelTests": "mocked only, no real inference credentials"
+}

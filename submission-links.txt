@@ -1,0 +1,7 @@
+产品 URL：https://mountttains.github.io/evidence-chain-lab/
+源代码仓库：https://github.com/mountttains/evidence-chain-lab
+演示视频：demo/演示视频.mp4（压缩包内）
+线上视频：https://mountttains.github.io/evidence-chain-lab/demo/%E6%BC%94%E7%A4%BA%E8%A7%86%E9%A2%91.mp4
+
+使用提示：默认规则验证不需要密钥。模型辅助需在页面设置中连接自己的兼容接口；当前没有内置模型服务。
+范围：Apple FY2024 / FY2023 真实历史财报案例，不提供实时行情或投资建议。

@@ -1,0 +1,54 @@
+{
+  "sourceURL": "https://www.apple.com/newsroom/pdfs/fy2024-q4/FY24_Q4_Consolidated_Financial_Statements.pdf",
+  "retrievedAt": "2026-10-09T08:10:37.516388+00:00",
+  "sha256": "af9646018330484238d357f1168ae74194fd768f4ea9921e4b2828c88309320c",
+  "pageCount": 4,
+  "checks": [
+    {
+      "field": "operating",
+      "sourcePage": 1,
+      "sourceValues": [
+        29591,
+        26969,
+        123216,
+        114301
+      ],
+      "passed": true
+    },
+    {
+      "field": "net",
+      "sourcePage": 1,
+      "sourceValues": [
+        14736,
+        22956,
+        93736,
+        96995
+      ],
+      "passed": true
+    },
+    {
+      "field": "gross",
+      "sourcePage": 1,
+      "sourceValues": [
+        43879,
+        40427,
+        180683,
+        169148
+      ],
+      "passed": true
+    },
+    {
+      "field": "tax",
+      "sourcePage": 1,
+      "sourceValues": [
+        14874,
+        4042,
+        29749,
+        16741
+      ],
+      "passed": true
+    }
+  ],
+  "taxAdjustmentVerified": 10246,
+  "note": "Other row values manually transcribed and cross-checked against page 1. Financial statements are unaudited earnings-release materials."
+}

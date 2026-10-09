@@ -1,0 +1,9 @@
+.tools/
+node_modules/
+.env
+.env.*
+!.env.example
+artifacts/
+submission/
+*.zip
+__pycache__/
