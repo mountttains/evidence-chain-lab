@@ -1,19 +1,288 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="真实财报、多证据验证、可追溯的投资研究"><title>溯证 · 投资研究工作台</title><link rel="stylesheet" href="styles.css"></head><body>
-<aside><a class="brand" href="#workbench"><span class="logo">溯</span>溯证 <small>TRACE / LAB</small></a><div class="nav-label">研究空间</div><nav><button data-view="workbench" class="active">◈　命题工作台</button><button data-view="library">▤　原始证据库</button><button data-view="tasks">☷　研究任务 <span id="task-count">0</span></button><button data-view="history">◷　版本比较</button></nav><div class="sidebar-bottom"><span class="live-dot"></span>公开数据 · 历史案例<br><small>Apple FY2024 / FY2023<br>资料发布于 2024-10-31</small><button id="settings">模型连接设置 ↗</button></div></aside>
-<main><header><div id="breadcrumb">研究空间 / 命题工作台</div><div class="header-actions"><button id="export">导出研究包 ↓</button><button id="new" class="primary">＋ 新建研究</button></div></header><div id="notice" role="status"></div><div class="page">
-<section class="hero"><div><div class="eyebrow">THESIS → EVIDENCE → INSIGHT</div><h1>每一个判断，都有据可循。</h1><p>保留反对意见，厘清财务口径，让研究结论经得起追问。</p></div><div class="case-label"><span>当前研究案例</span><strong>Apple Inc. <small>NASDAQ: AAPL</small></strong><div>历史财报验证 · 非实时行情</div></div></section>
-<div id="workbench" class="view"><div class="layout"><div>
-<section class="card thesis-card"><div class="section-title"><h2><span>01</span>定义你的命题</h2><span id="mode" class="badge neutral">规则拆解 · 无模型调用</span></div><label for="thesis">待验证的投资判断</label><textarea id="thesis" rows="2" maxlength="800">苹果 2024 财年盈利改善主要来自主营业务，且具有持续性。</textarea><div class="form-row"><label>比较期间<select id="period"><option value="annual">FY2024 vs FY2023 · 全年</option><option value="quarter">FY2024 Q4 vs FY2023 Q4</option></select></label><label>“盈利”的判断口径<select id="metric"><option value="operating">营业利润</option><option value="net">GAAP 净利润</option><option value="gross">毛利润</option></select></label></div><div class="clarification">需要澄清：“盈利”指哪一层利润？财务改善能证明历史表现，但不能单独证明未来持续性。</div><div class="actions"><button id="analyze" class="primary">拆解并验证命题 →</button><button id="ai-analyze">使用已连接模型</button><span class="small muted">仅支持当前 Apple 财务案例</span></div></section>
-<section class="card"><div class="section-title"><h2><span>02</span>可验证子问题</h2><span id="coverage" class="small muted"></span></div><div id="questions"></div></section>
-<section class="card"><div class="section-title"><h2><span>03</span>证据链</h2><button id="refresh">重新载入公开数据</button></div><div class="tabs" id="filters"><button data-filter="all" class="active">全部</button><button data-filter="support">支持</button><button data-filter="against">反对</button><button data-filter="unknown">无法验证</button></div><div id="evidence"></div><div class="small muted source-note">多个材料均来自同一发行人，不等于多个独立信源。报价、渠道库存与未来预测不在此数据范围内。</div></section>
-</div><div class="right-column"><section class="card result-card"><div class="section-title"><h2>当前结论</h2><span id="verdict" class="badge"></span></div><div class="result-overline">先界定口径，再作出判断</div><h3 id="headline"></h3><p id="conclusion"></p><div id="metrics" class="metrics"></div><div id="references" class="ref-row"></div><div class="boundary"><strong>什么会改变当前结论？</strong><p>后续可比期间营业利润下降；服务收入增速及毛利率回落；发现本期差异来自重述或口径变化。需新增对应原始材料后重新验证。</p><small>这些是待监测条件，不是对未来的预测。</small></div><button id="save" class="primary wide">保存本轮研究与结论</button></section>
-<section class="card conflict-card"><div class="section-title"><h2>口径冲突</h2><span class="badge amber">必须解释</span></div><h3>营业利润上升 ≠ 净利润上升</h3><p>一次性税项影响 GAAP 净利润。不能用管理层调整后指标覆盖法定报表结果，也不能把税项剔除直接视为可持续经营改善。</p><button id="conflict-detail">查看冲突证据 ↗</button><button id="revise">将命题修订为营业利润口径</button></section>
-<section class="card"><div class="section-title"><h2>继续追问</h2><span class="small muted">证据内检索</span></div><label for="followup" class="sr-only">追问内容</label><input id="followup" placeholder="例如：为什么净利润下降？" maxlength="500"><div class="actions"><button id="ask">追问</button><button id="make-task">保存为研究任务</button></div><div id="answer" aria-live="polite"></div></section>
-</div></div></div>
-<div id="library" class="view" hidden><section class="card"><div class="section-title"><h2>原始证据库</h2><span class="badge neutral">公开原始披露</span></div><p class="muted">数字来自苹果官网 2024 财年第四季度业绩资料。短摘录用于研究核验，完整原件请访问发行人网站。</p><div id="sources"></div><h3>数据口径与来源追溯</h3><div id="data-table"></div></section></div>
-<div id="tasks" class="view" hidden><section class="card"><div class="section-title"><h2>研究任务</h2><span class="small muted">保存在当前浏览器</span></div><div class="actions"><input id="task-input" maxlength="300" placeholder="输入下一步验证问题"><button id="add-task" class="primary">添加任务</button></div><div id="task-list"></div></section></div>
-<div id="history" class="view" hidden><section class="card"><div class="section-title"><h2>研究版本与比较</h2><span class="small muted">保留当时的命题、口径和结论</span></div><div class="form-row"><label>基准版本<select id="version-a"></select></label><label>比较版本<select id="version-b"></select></label></div><div id="comparison"></div><div id="version-list"></div></section></div>
-<footer><span>溯证 TRACE LAB · 研究辅助，不构成投资建议</span><button id="failure">演示数据接口异常</button><span id="dataset-info"></span></footer></div></main>
-<dialog id="modal"><div class="modal-top"><h2 id="modal-title"></h2><button id="close-modal" aria-label="关闭弹窗">✕</button></div><div id="modal-body"></div></dialog><div id="toast" role="status"></div>
-<script src="data/case.js"></script><script src="engine.js"></script><script src="app.js"></script></body></html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="description" content="真实财报、多证据验证、可追溯的投资研究" />
+    <title>溯证 · 投资研究工作台</title>
+    <link rel="stylesheet" href="styles.css?v=1.1.0" />
+  </head>
+  <body>
+    <aside>
+      <a class="brand" href="#workbench"
+        ><span class="logo">溯</span>溯证 <small>TRACE / LAB</small></a
+      >
+      <div class="nav-label">研究空间</div>
+      <nav>
+        <button data-view="workbench" class="active">◈　命题工作台</button
+        ><button data-view="library">▤　原始证据库</button
+        ><button data-view="tasks">
+          ☷　研究任务 <span id="task-count">0</span></button
+        ><button data-view="history">◷　版本比较</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <span class="live-dot"></span>公开数据 · 历史案例<br /><small
+          >Apple FY2024 / FY2023<br />资料发布于 2024-10-31</small
+        ><button id="settings">模型连接设置 ↗</button>
+      </div>
+    </aside>
+    <main>
+      <header>
+        <div id="breadcrumb">研究空间 / 命题工作台</div>
+        <div class="header-actions">
+          <button id="import">导入研究包</button
+          ><button id="report">下载报告</button
+          ><button id="export">导出研究包 ↓</button
+          ><input
+            type="file"
+            id="import-file"
+            accept=".json,application/json"
+            hidden
+          /><button id="new" class="primary">＋ 新建研究</button>
+        </div>
+      </header>
+      <div id="notice" role="status"></div>
+      <div class="page">
+        <section class="hero">
+          <div>
+            <div class="eyebrow">THESIS → EVIDENCE → INSIGHT</div>
+            <h1>每一个判断，都有据可循。</h1>
+            <p>保留反对意见，厘清财务口径，让研究结论经得起追问。</p>
+          </div>
+          <div class="case-label">
+            <span>当前研究案例</span
+            ><strong>Apple Inc. <small>NASDAQ: AAPL</small></strong>
+            <div>历史财报验证 · 非实时行情</div>
+          </div>
+        </section>
+        <div class="research-strip">
+          <div>
+            <span class="live-dot"></span><strong>真实财报验证</strong
+            ><span>01 定义命题</span><span>→</span><span>02 对照证据</span
+            ><span>→</span><span>03 保存研究</span>
+          </div>
+          <span id="draft-status">草稿自动保存</span>
+        </div>
+        <div id="workbench" class="view">
+          <div class="layout">
+            <div>
+              <section class="card thesis-card">
+                <div class="section-title">
+                  <h2><span>01</span>定义你的命题</h2>
+                  <span id="mode" class="badge neutral"
+                    >规则拆解 · 无模型调用</span
+                  >
+                </div>
+                <div class="preset-row">
+                  <span>试一条命题</span
+                  ><button data-preset="operating">主营改善</button
+                  ><button data-preset="net">净利润增长？</button
+                  ><button data-preset="quarter">单季度验证</button>
+                </div>
+                <label for="thesis">待验证的投资判断</label
+                ><textarea id="thesis" rows="2" maxlength="800">
+苹果 2024 财年盈利改善主要来自主营业务，且具有持续性。</textarea
+                >
+                <div
+                  id="thesis-error"
+                  class="inline-error"
+                  role="alert"
+                  hidden
+                ></div>
+                <div class="form-row">
+                  <label
+                    >比较期间<select id="period">
+                      <option value="annual">FY2024 vs FY2023 · 全年</option>
+                      <option value="quarter">FY2024 Q4 vs FY2023 Q4</option>
+                    </select></label
+                  ><label
+                    >“盈利”的判断口径<select id="metric">
+                      <option value="operating">营业利润</option>
+                      <option value="net">GAAP 净利润</option>
+                      <option value="gross">毛利润</option>
+                    </select></label
+                  >
+                </div>
+                <div class="clarification">
+                  需要澄清：“盈利”指哪一层利润？财务改善能证明历史表现，但不能单独证明未来持续性。
+                </div>
+                <div class="actions">
+                  <button id="analyze" class="primary">拆解并验证命题 →</button
+                  ><button id="ai-analyze">使用已连接模型</button
+                  ><span class="small muted">仅支持当前 Apple 财务案例</span>
+                </div>
+              </section>
+              <div id="dirty-warning" role="status" hidden>
+                输入已修改，下方证据与右侧结论仍对应上一轮已验证命题。点击“拆解并验证”后更新。
+              </div>
+              <section class="card">
+                <div class="section-title">
+                  <h2><span>02</span>可验证子问题</h2>
+                  <span id="coverage" class="small muted"></span>
+                </div>
+                <div id="questions"></div>
+              </section>
+              <section class="card">
+                <div class="section-title">
+                  <h2><span>03</span>证据链</h2>
+                  <button id="refresh">重新载入公开数据</button>
+                </div>
+                <label class="search-label" for="evidence-search"
+                  >检索当前证据<input
+                    id="evidence-search"
+                    type="search"
+                    placeholder="搜索服务、税项、持续性或证据编号"
+                /></label>
+                <div class="tabs" id="filters">
+                  <button data-filter="all" class="active">全部</button
+                  ><button data-filter="support">支持</button
+                  ><button data-filter="against">反对</button
+                  ><button data-filter="unknown">无法验证</button>
+                </div>
+                <div id="evidence"></div>
+                <div class="small muted source-note">
+                  多个材料均来自同一发行人，不等于多个独立信源。报价、渠道库存与未来预测不在此数据范围内。
+                </div>
+              </section>
+            </div>
+            <div class="right-column">
+              <section class="card result-card">
+                <div class="section-title">
+                  <h2>当前结论</h2>
+                  <span id="verdict" class="badge"></span>
+                </div>
+                <div class="result-overline" id="result-context">
+                  先界定口径，再作出判断
+                </div>
+                <h3 id="headline"></h3>
+                <p id="conclusion"></p>
+                <div id="metrics" class="metrics"></div>
+                <div id="references" class="ref-row"></div>
+                <div class="boundary">
+                  <strong>什么会改变当前结论？</strong>
+                  <p>
+                    后续可比期间营业利润下降；服务收入增速及毛利率回落；发现本期差异来自重述或口径变化。需新增对应原始材料后重新验证。
+                  </p>
+                  <small>这些是待监测条件，不是对未来的预测。</small>
+                </div>
+                <button id="save" class="primary wide">
+                  保存本轮研究与结论
+                </button>
+              </section>
+              <section class="card bridge-card">
+                <div class="section-title">
+                  <h2>净利润为什么下降？</h2>
+                  <button data-evidence="E3">核对原文 ↗</button>
+                </div>
+                <p class="small muted" id="bridge-period"></p>
+                <div id="profit-bridge"></div>
+                <p class="small muted">
+                  金额单位：亿美元。按损益表恒等式拆解，不代表经济因果。所得税总变动不等于一次性税项。
+                </p>
+              </section>
+              <section class="card conflict-card">
+                <div class="section-title">
+                  <h2>口径冲突</h2>
+                  <span class="badge amber">必须解释</span>
+                </div>
+                <h3>营业利润上升 ≠ 净利润上升</h3>
+                <p>
+                  一次性税项影响 GAAP
+                  净利润。不能用管理层调整后指标覆盖法定报表结果，也不能把税项剔除直接视为可持续经营改善。
+                </p>
+                <button id="conflict-detail">查看冲突证据 ↗</button
+                ><button id="revise">将命题修订为营业利润口径</button>
+              </section>
+              <section class="card">
+                <div class="section-title">
+                  <h2>继续追问</h2>
+                  <span class="small muted">证据内检索</span>
+                </div>
+                <label for="followup" class="sr-only">追问内容</label>
+                <div class="quick-questions">
+                  <button data-question="为什么净利润下降？">
+                    净利为何下降？</button
+                  ><button data-question="未来盈利改善能否持续？">
+                    还能持续吗？
+                  </button>
+                </div>
+                <input
+                  id="followup"
+                  placeholder="例如：为什么净利润下降？"
+                  maxlength="500"
+                />
+                <div class="actions">
+                  <button id="ask">追问</button
+                  ><button id="make-task">保存为研究任务</button>
+                </div>
+                <div id="answer" aria-live="polite"></div>
+              </section>
+            </div>
+          </div>
+        </div>
+        <div id="library" class="view" hidden>
+          <section class="card">
+            <div class="section-title">
+              <h2>原始证据库</h2>
+              <span class="badge neutral">公开原始披露</span>
+            </div>
+            <p class="muted">
+              数字来自苹果官网 2024
+              财年第四季度业绩资料。短摘录用于研究核验，完整原件请访问发行人网站。
+            </p>
+            <div id="sources"></div>
+            <h3>数据口径与来源追溯</h3>
+            <div id="data-table"></div>
+          </section>
+        </div>
+        <div id="tasks" class="view" hidden>
+          <section class="card">
+            <div class="section-title">
+              <h2>研究任务</h2>
+              <span class="small muted">保存在当前浏览器</span>
+            </div>
+            <div class="actions">
+              <input
+                id="task-input"
+                maxlength="300"
+                placeholder="输入下一步验证问题"
+              /><button id="add-task" class="primary">添加任务</button>
+            </div>
+            <div id="task-list"></div>
+          </section>
+        </div>
+        <div id="history" class="view" hidden>
+          <section class="card">
+            <div class="section-title">
+              <h2>研究版本与比较</h2>
+              <span class="small muted">保留当时的命题、口径和结论</span>
+            </div>
+            <div class="form-row">
+              <label>基准版本<select id="version-a"></select></label
+              ><label>比较版本<select id="version-b"></select></label>
+            </div>
+            <div id="comparison"></div>
+            <div id="version-list"></div>
+          </section>
+        </div>
+        <footer>
+          <span>溯证 TRACE LAB v1.1 · 研究辅助，不构成投资建议</span
+          ><button id="failure">演示数据接口异常</button
+          ><span id="dataset-info"></span>
+        </footer>
+      </div>
+    </main>
+    <dialog id="modal">
+      <div class="modal-top">
+        <h2 id="modal-title"></h2>
+        <button id="close-modal" aria-label="关闭弹窗">✕</button>
+      </div>
+      <div id="modal-body"></div>
+    </dialog>
+    <div id="toast" role="status"></div>
+    <script src="data/case.js?v=1.1.0"></script>
+    <script src="engine.js?v=1.1.0"></script>
+    <script src="workspace.js?v=1.1.0"></script>
+    <script src="app.js?v=1.1.0"></script>
+  </body>
+</html>

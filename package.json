@@ -1,12 +1,12 @@
 {
   "name": "trace-evidence-lab",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "description": "Auditable historical financial research with real Apple source disclosures",
   "scripts": {
     "start": "node scripts/serve.cjs",
-    "test": "node --test tests/engine.test.cjs",
-    "test:browser": "node tests/browser.cjs"
+    "test": "node --test tests/engine.test.cjs tests/workspace.test.cjs",
+    "test:browser": "node tests/browser.cjs && node tests/workflow-v2.cjs"
   },
   "devDependencies": {
     "playwright": "^1.56.0"

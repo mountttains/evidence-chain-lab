@@ -1,0 +1,56 @@
+{
+  "runAt": "2026-10-09T08:55:18.005Z",
+  "url": "http://127.0.0.1:4174/",
+  "results": [
+    {
+      "name": "draft recovery and stale-result warning",
+      "status": "passed"
+    },
+    {
+      "name": "guided presets, period-specific bridge and source search",
+      "status": "passed"
+    },
+    {
+      "name": "evidence notes persist and escape untrusted markup",
+      "status": "passed"
+    },
+    {
+      "name": "saved version restores context and notes without deleting history",
+      "status": "passed"
+    },
+    {
+      "name": "tasks deduplicate and deletion can be undone",
+      "status": "passed"
+    },
+    {
+      "name": "readable report and portable JSON are real downloadable files",
+      "status": "passed"
+    },
+    {
+      "name": "import rejects tampered data before touching workspace",
+      "status": "passed"
+    },
+    {
+      "name": "import preview, merge and revalidation preserve records",
+      "status": "passed"
+    },
+    {
+      "name": "inline scope error preserves clearly marked old analysis",
+      "status": "passed"
+    },
+    {
+      "name": "pending model request cancels when the thesis changes",
+      "status": "passed"
+    },
+    {
+      "name": "prior AI output is cleared after a failed replacement request",
+      "status": "passed"
+    },
+    {
+      "name": "mobile workflow has no horizontal overflow",
+      "status": "passed"
+    }
+  ],
+  "uncaughtErrors": [],
+  "modelTests": "mocked, no live inference credentials"
+}
